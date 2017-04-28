@@ -1,0 +1,133 @@
+Hướng dẫn restore database bằng RMAN
+
+Bước 1: Tao PFILE
+		CREATE PFILE = 'Duong dan pfile' FROM SPFILE = 'Duong dan spfile';
+	
+Bước 2: Sua PFILE theo moi truong moi
+
+Bước 3: Tao ID
+		set ORACLE_SID=TCDN
+		set ORACLE_HOME=C:\app\Administrator\product\11.2.0\dbhome_1
+		oradim -new -sid TCDN
+	
+Bước 4: Start database ở chế độ NOMOUNT 
+		SQL> startup nomount pfile='F:\pfile.ora';
+
+Bước 5: Restore control file
+		Control file tại thư mục backup: "E:\bk_db\20161205_full\TCDN_CTLLV0_20161205_SJRMLQDN.BAK"
+		RMAN> restore controlfile from 'E:\bk_db\20161205_full\TCDN_CTLLV0_20161205_SJRMLQDN.BAK';
+Bước 6: Mount database
+		RMAN> alter database mount;
+Bước 7: Kiểm tra Backup 
+		RMAN> crosscheck backup;
+		RMAN> delete expired backup;
+		RMAN> crosscheck archivelog all;
+		RMAN> delete expired archivelog all;
+		RMAN> configure archivelog deletion policy clear; //Vì database hien tai dang chay dataguard
+Bước 8: Catalog file backup
+		RMAN> catalog start with 'E:\bk_db\20161205_full';
+	
+Bước 9: Lấy tên file database và đổi tên // Do db chính sử dụng ASM còn db restore sử dụng file system
+		SQL>col name for a40
+			set lines 150
+			select file#, name from v$datafile;	
+		==> G:\oradata\tcdn\system.dbf
+		
+Bước 10: Restore db
+		**Chú ý thay tên đường dẫn:G:\oradata\tcdn\system.dbf
+		RMAN>run {
+			allocate channel ch1 device type disk;
+			allocate channel ch2 device type disk;
+			allocate channel ch3 device type disk;
+			allocate channel ch4 device type disk;
+			allocate channel ch5 device type disk;
+			allocate channel ch6 device type disk;
+			allocate channel ch7 device type disk;
+			allocate channel ch8 device type disk;
+			set newname for datafile 1 to 'G:\oradata\tcdn\system.dbf';
+			set newname for datafile 2 to 'G:\oradata\tcdn\sysaux.dbf';
+			set newname for datafile 3 to 'G:\oradata\tcdn\undotbs1.dbf';
+			set newname for datafile 4 to 'G:\oradata\tcdn\users.dbf';
+			set newname for datafile 5 to 'G:\oradata\tcdn\ABICDATA_DF05.DBF';
+			set newname for datafile 6 to 'G:\oradata\tcdn\ABICDATA_DF04.DBF';
+			set newname for datafile 7 to 'G:\oradata\tcdn\ABICDATA_DF03.DBF';
+			set newname for datafile 8 to 'G:\oradata\tcdn\ABICDATA_DF02.DBF';
+			set newname for datafile 9 to 'G:\oradata\tcdn\ABICDATA_DF01.DBF';
+			set newname for datafile 10 to 'G:\oradata\tcdn\ABIC_001.DBF';
+			set newname for datafile 11 to 'G:\oradata\tcdn\ABIC_002.DBF';
+			set newname for datafile 12 to 'G:\oradata\tcdn\ABIC_003.DBF';
+			set newname for datafile 13 to 'G:\oradata\tcdn\ABIC_004.DBF';
+			set newname for datafile 14 to 'G:\oradata\tcdn\ABIC_005.DBF';
+			set newname for datafile 15 to 'G:\oradata\tcdn\ABIC_006.DBF';
+			set newname for datafile 16 to 'G:\oradata\tcdn\ABIC_007.DBF';
+			set newname for datafile 17 to 'G:\oradata\tcdn\ABIC_008.DBF';
+			set newname for datafile 18 to 'G:\oradata\tcdn\ABIC_009.DBF';
+			set newname for datafile 19 to 'G:\oradata\tcdn\ABIC_010.DBF';
+			set newname for datafile 20 to 'G:\oradata\tcdn\ABIC_080.DBF';
+			set newname for datafile 21 to 'G:\oradata\tcdn\ABICINDEX_DF04.DBF';
+			set newname for datafile 22 to 'G:\oradata\tcdn\ABICINDEX_DF03.DBF';
+			set newname for datafile 23 to 'G:\oradata\tcdn\ABICINDEX_DF02.DBF';
+			set newname for datafile 24 to 'G:\oradata\tcdn\ABICINDEX_DF01.DBF';
+			set newname for datafile 25 to 'G:\oradata\tcdn\ABICINDEX_DF05.DBF';
+			set newname for datafile 26 to 'G:\oradata\tcdn\ABICINDEX_DF06.DBF';
+			restore database;
+			switch datafile all;
+			}
+
+Bước 11: Recover db
+
+		RMAN> list backup of archivelog all;
+
+			  List of Archived Logs in backup set 887
+			  Thrd Seq     Low SCN    Low Time  Next SCN   Next Time
+			  ---- ------- ---------- --------- ---------- ---------
+			  1    25990   16803167344 05-DEC-16 16803173554 05-DEC-16
+			  1    25991   16803173554 05-DEC-16 16803180412 05-DEC-16
+
+		RMAN> run
+			{
+				set until sequence 25992; // 25992=25991+1
+				recover database;
+			}
+
+
+Bước 12: Change protectionmode (Vì có dataguard)
+
+		SQL> select protection_mode from v$database;
+		SQL> ALTER DATABASE SET STANDBY DATABASE TO MAXIMIZE PERFORMANCE ;
+		SQL> select protection_mode from v$database;
+
+Bước 13: Change redo log
+
+		SQL>  select member from v$logfile;
+
+			MEMBER
+			--------------------------------------------------------
+
+			+DATA/tcdn/onlinelog/group_1.274.927651123
+			+DATA/tcdn/onlinelog/group_2.260.927651135
+			+DATA/tcdn/onlinelog/group_3.282.927651143
+			+DATA/tcdn/onlinelog/group_1.257.927650893
+			+DATA/tcdn/onlinelog/group_2.258.927650895
+			+DATA/tcdn/onlinelog/group_3.256.927650897
+			+DATA/tcdn/onlinelog/group_4.280.927654593
+			+DATA/tcdn/onlinelog/group_5.292.927654593
+			+DATA/tcdn/onlinelog/group_6.293.927654595
+			+DATA/tcdn/onlinelog/group_7.294.927654597
+
+			10 rows selected.
+
+alter database rename file '+DATA/tcdn/onlinelog/group_1.274.927651123' to 'G:\oradata\tcdn\redo01.log';
+alter database rename file '+DATA/tcdn/onlinelog/group_2.260.927651135' to 'G:\oradata\tcdn\redo02.log';
+alter database rename file '+DATA/tcdn/onlinelog/group_3.282.927651143' to 'G:\oradata\tcdn\redo03.log';
+
+Bước 14: CHANGE TEMP
+
+		SQL>create temporary tablespace TEMP tempfile 'G:\oradata\tcdn\temp01.dbf' size 50M autoextend on;
+		SQL>alter database default temporary tablespace TEMP;
+		SQL>drop tablespace TEMP2 including contents and datafiles;
+
+15. Create spfile + restart db
+		SQL>create spfile='C:\app\Administrator\product\11.2.0\dbhome_1\database\spfiletcdn.ora' from pfile='F:\pfile.ora';
+		SQL>shutdown immediate;
+		SQL>startup

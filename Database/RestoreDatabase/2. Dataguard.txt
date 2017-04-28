@@ -1,0 +1,266 @@
+------------------DC
+0. Set bien moi truong, tao passwordfile
+
+set ORACLE_HOME=E:\app\Administrator\product\11.2.0\dbhome_1
+set ORACLE_SID=TCDN
+#orapwd file=%ORACLE_HOME%\database\pwdtcdn.ora password=oracle entries=10 ignorecase=y force=y
+
+1. Force logging
+Select force_logging from v$database;
+alter database force logging;
+
+2. Config parameter
+alter system set LOG_ARCHIVE_CONFIG='DG_CONFIG=(tcdn,drtcdn)' scope=both sid='*';
+
+alter system set LOG_ARCHIVE_DEST_1='LOCATION=F:\app\Administrator\recovery_area\ARCH\ VALID_FOR=(ALL_LOGFILES,ALL_ROLES) DB_UNIQUE_NAME=tcdn' scope=both sid='*';
+
+alter system set LOG_ARCHIVE_DEST_2='SERVICE=drtcdn lgwr async noaffirm delay=0 optional compression=disable max_failure=0 max_connections=1 reopen=300  net_timeout=30 VALID_FOR=(ONLINE_LOGFILES,PRIMARY_ROLE) DB_UNIQUE_NAME=drtcdn' scope=both sid='*';
+
+alter system set log_archive_format='%t_%s_%r.arc' scope=spfile sid='*';
+
+alter system set log_archive_max_processes=8 scope=both sid='*';
+
+alter system set fal_server=drtcdn scope=both sid='*';
+
+alter system set db_file_name_convert='drtcdn','tcdn' scope=spfile sid='*';
+
+alter system set log_file_name_convert='drtcdn','tcdn' scope=spfile sid='*';
+
+alter system set standby_file_management=AUTO scope=both sid='*';
+
+	- Chec k:
+	show parameter db_name
+	show parameter db_unique_name
+		 
+	set linesize 500 pages 0
+	col value for a90
+	col name for a50
+	select name, value from v$parameter where name in ('db_name','db_unique_name','log_archive_config', 'log_archive_dest_1','log_archive_dest_2', 'log_archive_dest_state_1','log_archive_dest_state_2', 'remote_login_passwordfile','log_archive_format','log_archive_max_processes','fal_server','db_file_name_convert', 'log_file_name_convert', 'standby_file_management');
+	
+db_file_name_convert
+log_file_name_convert
+log_archive_dest_1                                 LOCATION=F:\app\Administrator
+\recovery_area\ARCH\ VALID_FOR=(ALL_LOGFILES,ALL_ROLES) DB_UN
+                                                   IQUE_NAME=tcdn
+
+log_archive_dest_2                                 SERVICE=drtcdn lgwr async noa
+ffirm delay=0 optional compression=disable max_failure=0 max_
+                                                   connections=1 reopen=300  net
+_timeout=30 VALID_FOR=(ONLINE_LOGFILES,PRIMARY_ROLE) DB_UNIQU
+                                                   E_NAME=drtcdn
+
+log_archive_dest_state_1                           enable
+log_archive_dest_state_2                           enable
+fal_server                                         DRTCDN
+log_archive_config                                 DG_CONFIG=(tcdn,drtcdn)
+log_archive_format                                 ARC%S_%R.%T
+log_archive_max_processes                          8
+standby_file_management                            AUTO
+remote_login_passwordfile                          EXCLUSIVE
+db_name                                            TCDN
+db_unique_name                                     TCDN
+	
+3. Add standby redo log = (group + 1) * thread ( RAC co 2 node nen thread la 2)
+	
+select max (bytes), count (1) from v$log;
+
+MAX(BYTES)   COUNT(1)
+---------- ----------
+  52428800	    3
+  
+=> (3 + 1)*1=4 6 standby redo
+
+ALTER DATABASE ADD STANDBY LOGFILE ('+DATA') SIZE 52428800;
+
+ALTER DATABASE ADD STANDBY LOGFILE ('+DATA') SIZE 52428800;
+
+ALTER DATABASE ADD STANDBY LOGFILE ('+DATA') SIZE 52428800;
+
+ALTER DATABASE ADD STANDBY LOGFILE ('+DATA') SIZE 52428800;
+
+4. Backup database + create pfile
+
+rman target / 
+
+run{
+	allocate channel ch1 device type disk;
+	allocate channel ch2 device type disk;
+	allocate channel ch3 device type disk;
+	allocate channel ch4 device type disk;
+	allocate channel ch5 device type disk;
+	allocate channel ch6 device type disk;
+	allocate channel ch7 device type disk;
+	allocate channel ch8 device type disk;
+    sql 'alter system archive log current';
+    backup database format 'F:\backupDB_DG\tcdn_db_%T_s%s_p%p.bkp';
+	backup archivelog all format 'F:\backupDB_DG\tcdn_arch_%T_s%s_p%p.bkp'; 
+    backup current controlfile format 'F:\backupDB_DG\tcdn_ctl_%T_s%s_p%p.bkp';
+    backup spfile format 'F:\backupDB_DG\tdcn_spfile_%T_s%s_p%p.bkp';
+	CROSSCHECK BACKUP;
+	CROSSCHECK ARCHIVELOG ALL;
+    }
+SQL> create pfile='F:\backupDB_DG\pfile.ora' from spfile;
+
+5. Update tnsname.ora
+
+ %ORACLE_HOME%/network/admin/tnsnames.ora 
+ 
+TCDN =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.10.10.1)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = tcdn)
+    )
+  )
+
+DRTCDN =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.10.10.3)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = drtcdn)
+    )
+  )
+
+6. Copy to standby server
+
+Copy bankup: scp -r /u01/bk1/ ebank1:/u01/ 
+
+Copy tnsnames.ora: 
+scp $ORACLE_HOME/network/admin/tnsnames.ora ebank1:$ORACLE_HOME/network/admin/tnsnames.ora
+
+scp $ORACLE_HOME/network/admin/tnsnames.ora ebank2:$ORACLE_HOME/network/admin/tnsnames.ora
+
+Copy password file:
+scp $ORACLE_HOME/dbs/orapwtcdn ebank1:$ORACLE_HOME/dbs/orapwdrtcdn
+
+
+
+
+--------------------------DR
+
+
+7. Sua pfile tren standby
+
+drtcdn.__db_cache_size=11475615744
+drtcdn.__java_pool_size=469762048
+drtcdn.__large_pool_size=536870912
+drtcdn.__oracle_base='E:\app\Administrator'#ORACLE_BASE set from environment
+drtcdn.__pga_aggregate_target=7918845952
+drtcdn.__sga_target=14763950080
+drtcdn.__shared_io_pool_size=0
+drtcdn.__shared_pool_size=2080374784
+drtcdn.__streams_pool_size=67108864
+*.audit_file_dest='E:\app\Administrator\admin\DRTCDN\adump'
+*.audit_trail='db'
+*.compatible='11.2.0.0.0'
+*.control_files='+DATA/DRTCDN/controlfile/control01.ctl','E:\app\Administrator\product\11.2.0\dbhome_1\dbs\control02.ctl'
+*.db_block_size=8192
+*.db_domain=''
+*.db_file_name_convert='tcdn','drtcdn'
+*.db_name='TCDN'
+*.db_unique_name='DRTCDN'
+*.db_recovery_file_dest='F:\app\Administrator\recovery_area'
+*.db_recovery_file_dest_size=4102029312
+*.deferred_segment_creation=FALSE
+*.diagnostic_dest='E:\app\Administrator'
+*.dispatchers='(PROTOCOL=TCP)(SERVICE=TCDNXDB)'
+*.fal_server='TCDN'
+*.job_queue_processes=1000
+*.local_listener='(ADDRESS=(PROTOCOL=TCP)(HOST=10.10.10.3)(PORT=6789))'
+*.log_archive_config='DG_CONFIG=(tcdn,drtcdn)'
+*.log_archive_dest_1='LOCATION=F:\app\Administrator\recovery_area\ARCH\ VALID_FOR=(ALL_LOGFILES,ALL_ROLES) DB_UNIQUE_NAME=drtcdn'
+*.log_archive_dest_2='SERVICE=tcdn lgwr async noaffirm delay=0 optional compression=disable max_failure=0 max_connections=1 reopen=300  net_timeout=30 VALID_FOR=(ONLINE_LOGFILES,PRIMARY_ROLE) DB_UNIQUE_NAME=tcdn'
+*.log_archive_format='%t_%s_%r.arc'
+*.log_archive_max_processes=8
+*.log_file_name_convert='tcdn','drtcdn'
+*.memory_target=22670213120
+*.open_cursors=300
+*.processes=1500
+*.remote_login_passwordfile='EXCLUSIVE'
+*.sessions=1655
+*.standby_file_management='AUTO'
+*.transactions=1820
+*.undo_tablespace='UNDOTBS1'
+
+
+8. Tao thu muc va service. Copy tnsname.ora va %oracle_home%/network/admin. Copy orapwtcdn vao %oracle_home%/database. Doi ten thanh orarwdrtcdn
+	
+F:\app\Administrator\recovery_area\ARCH\
+
+
+oradim -NEW -SID drtcdn
+
+	
+8.1. startup nomount
+
+rman target /
+startup nomount pfile='F:\backupDB_DG\pfile.ora';
+
+9. Restore database
+	
+	rman target sys/oracle@tcdn auxiliary /
+	
+run {
+allocate channel ch1 device type disk;
+allocate channel ch2 device type disk;
+allocate channel ch3 device type disk;
+allocate channel ch4 device type disk;
+allocate channel ch5 device type disk;
+allocate channel ch6 device type disk;
+allocate channel ch7 device type disk;
+allocate auxiliary channel aux_1 device type disk;
+allocate auxiliary channel aux_2 device type disk;
+allocate auxiliary channel aux_3 device type disk;
+allocate auxiliary channel aux_4 device type disk;
+allocate auxiliary channel aux_5 device type disk;
+allocate auxiliary channel aux_6 device type disk;
+allocate auxiliary channel aux_7 device type disk;
+DUPLICATE TARGET DATABASE FOR STANDBY NOFILENAMECHECK;
+}
+	
+10. Tao spfile
+	
+	create spfile='+data' from pfile='F:\backupDB_DG\pfile.ora';
+	Tao file initdrtcdn.ora: E:\app\Administrator\product\11.2.0\dbhome_1\database\initdrtcdn.ora
+	spfile=+data/drtcdn/parameterfile/spfile.283.926334233
+
+10.1. Tao standby redo log
+	
+ALTER DATABASE ADD STANDBY LOGFILE ('+DATA') SIZE 52428800;
+
+ALTER DATABASE ADD STANDBY LOGFILE ('+DATA') SIZE 52428800;
+
+ALTER DATABASE ADD STANDBY LOGFILE ('+DATA') SIZE 52428800;
+
+ALTER DATABASE ADD STANDBY LOGFILE ('+DATA') SIZE 52428800;
+	
+11. Register with srvctl
+	
+	srvctl add database -d drtcdn -n tcdn -o E:\app\Administrator\product\11.2.0\dbhome_1  -p +data/drtcdn/parameterfile/spfile.283.926334233 -r physical_standby -a DATA
+		
+	srvctl modify database -d drtcdn -s open
+	
+	srvctl config database -d drtcdn
+	
+	srvctl start database -d drtcdn
+	
+12. Start dataguard
+
+	Tasks	Command
+	Stop data guard	# alter database recover managed standby database cancel;
+	Start data guard	# alter database recover managed standby database disconnect from session;
+	Start real time apply	# alter database recover managed standby database using current logfile disconnect from session;
+	Query recovery_mode	# select recovery_mode from v$archive_dest_status;
+	Query dest 2 state	# show parameter LOG_ARCHIVE_DEST_STATE_2;
+	Enable dest 2 state	# alter system set LOG_ARCHIVE_DEST_STATE_2=enable scope=both sid='*';
+	Defer dest 2 state	# alter system set LOG_ARCHIVE_DEST_STATE_2=defer scope=both sid='*';
+	
+	
+	http://www.oracledba.org/11gR2/dr/11gR2_dataguard_RAC_to_RAC.html
+	
+	https://docs.google.com/document/preview?id=1wZj44icbh4kr4kRDXrJvPw2IFtwi9CNuUWHRrUeqQOI
+	
+	http://www.findcopypaste.com/11g/dataguard-configuration-in-11gr2-enterprise-edition/
+	

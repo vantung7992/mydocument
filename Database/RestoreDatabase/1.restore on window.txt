@@ -1,0 +1,519 @@
+1. Tao id moi
+set ORACLE_SID=TCDN
+set ORACLE_HOME=E:\app\Administrator\product\11.2.0\dbhome_1
+oradim -new -sid TCDN
+
+- sua tnsname.ora
+
+TCDN =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.10.10.1)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = tcdn)
+    )
+  )
+  
+---- Sua pfile
+tcdn.__db_cache_size=5704253440
+tcdn.__java_pool_size=67108864
+tcdn.__large_pool_size=67108864
+tcdn.__oracle_base='E:\app\Administrator'#ORACLE_BASE set from environment
+tcdn.__pga_aggregate_target=7918845952
+tcdn.__sga_target=14763950080
+tcdn.__shared_io_pool_size=0
+tcdn.__shared_pool_size=8724152320
+tcdn.__streams_pool_size=67108864
+*.audit_file_dest='E:\app\Administrator\admin\TCDN\adump'
+*.audit_trail='db'
+*.compatible='11.2.0.0.0'
+*.control_files='+DATA/TCDN/controlfile/control01.ctl','E:\app\Administrator\product\11.2.0\dbhome_1\dbs\control02.ctl'
+*.db_block_size=8192
+*.db_domain=''
+*.db_name='TCDN'
+*.db_recovery_file_dest='F:\app\Administrator\recovery_area'
+*.db_recovery_file_dest_size=4102029312
+*.deferred_segment_creation=FALSE
+*.diagnostic_dest='E:\app\Administrator'
+*.dispatchers='(PROTOCOL=TCP)(SERVICE=TCDNXDB)'
+*.memory_target=22670213120
+*.open_cursors=300
+*.processes=1500
+*.remote_login_passwordfile='EXCLUSIVE'
+*.sessions=1655
+*.transactions=1820
+*.undo_tablespace='UNDOTBS1'
+
+
+C:\Users\Administrator>rman target /
+
+Recovery Manager: Release 11.2.0.4.0 - Production on Wed Oct 19 10:20:54 2016
+
+Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database (not started)
+
+RMAN> startup nomount pfile='F:\TCDN_121116\pfile_TCDN.ora'
+
+Oracle instance started
+
+Total System Global Area   22581522432 bytes
+
+Fixed Size                     2291384 bytes
+Variable Size              11140073800 bytes
+Database Buffers           11408506880 bytes
+Redo Buffers                  30650368 bytes
+
+RMAN> restore controlfile from 'F:\TCDN_121116\CONTROLFILE_20161112_TCDN_18_1';
+
+
+Starting restore at 11-NOV-16
+using target database control file instead of recovery catalog
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=1989 device type=DISK
+
+channel ORA_DISK_1: restoring control file
+channel ORA_DISK_1: restore complete, elapsed time: 00:00:01
+output file name=+DATA/tcdn/controlfile/control01.ctl
+output file name=E:\APP\ADMINISTRATOR\PRODUCT\11.2.0\DBHOME_1\DBS\CONTROL02.CTL
+Finished restore at 11-NOV-16
+
+RMAN> alter  database mount;
+
+database mounted
+released channel: ORA_DISK_1
+
+RMAN> crosscheck backup;
+
+Starting implicit crosscheck backup at 19-OCT-16
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=1989 device type=DISK
+allocated channel: ORA_DISK_2
+channel ORA_DISK_2: SID=2131 device type=DISK
+allocated channel: ORA_DISK_3
+channel ORA_DISK_3: SID=2202 device type=DISK
+allocated channel: ORA_DISK_4
+channel ORA_DISK_4: SID=1 device type=DISK
+allocated channel: ORA_DISK_5
+channel ORA_DISK_5: SID=72 device type=DISK
+allocated channel: ORA_DISK_6
+channel ORA_DISK_6: SID=144 device type=DISK
+allocated channel: ORA_DISK_7
+channel ORA_DISK_7: SID=215 device type=DISK
+allocated channel: ORA_DISK_8
+channel ORA_DISK_8: SID=286 device type=DISK
+Crosschecked 7 objects
+Finished implicit crosscheck backup at 19-OCT-16
+
+Starting implicit crosscheck copy at 19-OCT-16
+using channel ORA_DISK_1
+using channel ORA_DISK_2
+using channel ORA_DISK_3
+using channel ORA_DISK_4
+using channel ORA_DISK_5
+using channel ORA_DISK_6
+using channel ORA_DISK_7
+using channel ORA_DISK_8
+Finished implicit crosscheck copy at 19-OCT-16
+
+searching for all files in the recovery area
+cataloging files...
+no files cataloged
+
+using channel ORA_DISK_1
+using channel ORA_DISK_2
+using channel ORA_DISK_3
+using channel ORA_DISK_4
+using channel ORA_DISK_5
+using channel ORA_DISK_6
+using channel ORA_DISK_7
+using channel ORA_DISK_8
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=E:\BACKUP\DB_20161001_TCDN_1_1 RECID=1 STAMP=924115014
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=E:\BACKUP\DB_20161001_TCDN_6_1 RECID=2 STAMP=924115022
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=E:\BACKUP\DB_20161001_TCDN_3_1 RECID=3 STAMP=924115016
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=E:\BACKUP\DB_20161001_TCDN_5_1 RECID=4 STAMP=924115019
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=E:\BACKUP\DB_20161001_TCDN_4_1 RECID=5 STAMP=924115017
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=E:\BACKUP\DB_20161001_TCDN_7_1 RECID=6 STAMP=924115025
+crosschecked backup piece: found to be 'EXPIRED'
+backup piece handle=E:\BACKUP\DB_20161001_TCDN_2_1 RECID=7 STAMP=924115015
+Crosschecked 7 objects
+
+
+RMAN> delete expired backup;
+
+using channel ORA_DISK_1
+using channel ORA_DISK_2
+using channel ORA_DISK_3
+using channel ORA_DISK_4
+using channel ORA_DISK_5
+using channel ORA_DISK_6
+using channel ORA_DISK_7
+using channel ORA_DISK_8
+
+List of Backup Pieces
+BP Key  BS Key  Pc# Cp# Status      Device Type Piece Name
+------- ------- --- --- ----------- ----------- ----------
+1       1       1   1   EXPIRED     DISK        E:\BACKUP\DB_20161001_TCDN_1_1
+2       2       1   1   EXPIRED     DISK        E:\BACKUP\DB_20161001_TCDN_6_1
+3       3       1   1   EXPIRED     DISK        E:\BACKUP\DB_20161001_TCDN_3_1
+4       4       1   1   EXPIRED     DISK        E:\BACKUP\DB_20161001_TCDN_5_1
+5       5       1   1   EXPIRED     DISK        E:\BACKUP\DB_20161001_TCDN_4_1
+6       6       1   1   EXPIRED     DISK        E:\BACKUP\DB_20161001_TCDN_7_1
+7       7       1   1   EXPIRED     DISK        E:\BACKUP\DB_20161001_TCDN_2_1
+
+Do you really want to delete the above objects (enter YES or NO)? YES
+deleted backup piece
+backup piece handle=E:\BACKUP\DB_20161001_TCDN_1_1 RECID=1 STAMP=924115014
+deleted backup piece
+backup piece handle=E:\BACKUP\DB_20161001_TCDN_6_1 RECID=2 STAMP=924115022
+deleted backup piece
+backup piece handle=E:\BACKUP\DB_20161001_TCDN_3_1 RECID=3 STAMP=924115016
+deleted backup piece
+backup piece handle=E:\BACKUP\DB_20161001_TCDN_5_1 RECID=4 STAMP=924115019
+deleted backup piece
+backup piece handle=E:\BACKUP\DB_20161001_TCDN_4_1 RECID=5 STAMP=924115017
+deleted backup piece
+backup piece handle=E:\BACKUP\DB_20161001_TCDN_7_1 RECID=6 STAMP=924115025
+deleted backup piece
+backup piece handle=E:\BACKUP\DB_20161001_TCDN_2_1 RECID=7 STAMP=924115015
+Deleted 7 EXPIRED objects
+
+
+RMAN> catalog start with 'F:\TCDN_121116';
+
+searching for all files that match the pattern F:\backupDB
+
+List of Files Unknown to the Database
+=====================================
+File Name: F:\backupDB\C-1532903838-20161001-00
+File Name: F:\backupDB\CONTROLFILE_20161001_TCDN_8_1
+File Name: F:\backupDB\CONTROLFILE_20161001_TCDN_9_1
+File Name: F:\backupDB\DB_20161001_TCDN_1_1
+File Name: F:\backupDB\DB_20161001_TCDN_2_1
+File Name: F:\backupDB\DB_20161001_TCDN_3_1
+File Name: F:\backupDB\DB_20161001_TCDN_4_1
+File Name: F:\backupDB\DB_20161001_TCDN_5_1
+File Name: F:\backupDB\DB_20161001_TCDN_6_1
+File Name: F:\backupDB\DB_20161001_TCDN_7_1
+File Name: F:\backupDB\log_backup01102016.log
+File Name: F:\backupDB\pfile.ora
+File Name: F:\backupDB\pfile30092016.ora
+
+Do you really want to catalog the above files (enter YES or NO)? YES
+cataloging files...
+cataloging done
+
+List of Cataloged Files
+=======================
+File Name: F:\backupDB\C-1532903838-20161001-00
+File Name: F:\backupDB\CONTROLFILE_20161001_TCDN_8_1
+File Name: F:\backupDB\CONTROLFILE_20161001_TCDN_9_1
+File Name: F:\backupDB\DB_20161001_TCDN_1_1
+File Name: F:\backupDB\DB_20161001_TCDN_2_1
+File Name: F:\backupDB\DB_20161001_TCDN_3_1
+File Name: F:\backupDB\DB_20161001_TCDN_4_1
+File Name: F:\backupDB\DB_20161001_TCDN_5_1
+File Name: F:\backupDB\DB_20161001_TCDN_6_1
+File Name: F:\backupDB\DB_20161001_TCDN_7_1
+
+List of Files Which Where Not Cataloged
+=======================================
+File Name: F:\backupDB\log_backup01102016.log
+  RMAN-07517: Reason: The file header is corrupted
+File Name: F:\backupDB\pfile.ora
+  RMAN-07517: Reason: The file header is corrupted
+File Name: F:\backupDB\pfile30092016.ora
+  RMAN-07517: Reason: The file header is corrupted
+
+SQL> col name for a40
+SQL> set lines 150
+SQL> select file#, name from v$datafile;
+
+
+     FILE# NAME
+---------- ----------------------------------------
+         1 C:\ORACLE_DATA\TCDN\SYSTEM01.DBF
+         2 C:\ORACLE_DATA\TCDN\SYSAUX01.DBF
+         3 C:\ORACLE_DATA\TCDN\UNDOTBS01.DBF
+         4 C:\ORACLE_DATA\TCDN\USERS01.DBF
+         5 E:\ORACLE_DATA\ABICDATA_DF05.DBF
+         6 E:\ORACLE_DATA\ABICDATA_DF04.DBF
+         7 E:\ORACLE_DATA\ABICDATA_DF03.DBF
+         8 E:\ORACLE_DATA\ABICDATA_DF02.DBF
+         9 E:\ORACLE_DATA\ABICDATA_DF01.DBF
+        10 F:\ORACLE_PART\ABIC_001.DBF
+        11 F:\ORACLE_PART\ABIC_002.DBF
+
+     FILE# NAME
+---------- ----------------------------------------
+		+DATA\TCDN\SYSTEM01.DBF
+		+DATA\TCDN\SYSAUX01.DBF
+		+DATA\TCDN\UNDOTBS01.DBF
+		+DATA\TCDN\USERS01.DBF
+		+DATA\TCDN\ABICDATA_DF05.DBF
+		+DATA\TCDN\ABICDATA_DF04.DBF
+		+DATA\TCDN\ABICDATA_DF03.DBF
+		+DATA\TCDN\ABICDATA_DF02.DBF
+		+DATA\TCDN\ABICDATA_DF01.DBF
+		+DATA\TCDN\ABIC_001.DBF
+		+DATA\TCDN\ABIC_002.DBF
+		+DATA\TCDN\ABIC_003.DBF
+		+DATA\TCDN\ABIC_004.DBF
+		+DATA\TCDN\ABIC_005.DBF
+		+DATA\TCDN\ABIC_006.DBF
+		+DATA\TCDN\ABIC_007.DBF
+		+DATA\TCDN\ABIC_008.DBF
+		+DATA\TCDN\ABIC_009.DBF
+		+DATA\TCDN\ABIC_010.DBF
+		+DATA\TCDN\ABIC_080.DBF
+		+DATA\TCDN\ABICINDEX_DF04.DBF
+		+DATA\TCDN\ABICINDEX_DF03.DBF
+		+DATA\TCDN\ABICINDEX_DF02.DBF
+		+DATA\TCDN\ABICINDEX_DF01.DBF
+		+DATA\TCDN\ABICINDEX_DF05.DBF
+		+DATA\TCDN\ABICINDEX_DF06.DBF
+select 'set newname for datafile ' || file# || ' to ''+DATA\tcdn' || substr(name,instr(name,'/',-1)+1) || ''';'
+from v$datafile;
+	
+set newname for datafile 1 to '+DATA\tcdn\SYSTEM01.DBF';
+set newname for datafile 2 to '+DATA\tcdn\SYSAUX01.DBF';
+set newname for datafile 3 to '+DATA\tcdn\UNDOTBS01.DBF';
+set newname for datafile 4 to '+DATA\tcdn\USERS01.DBF';
+set newname for datafile 5 to '+DATA\tcdn\ABICDATA_DF05.DBF';
+set newname for datafile 6 to '+DATA\tcdn\ABICDATA_DF04.DBF';
+set newname for datafile 7 to '+DATA\tcdn\ABICDATA_DF03.DBF';
+set newname for datafile 8 to '+DATA\tcdn\ABICDATA_DF02.DBF';
+set newname for datafile 9 to '+DATA\tcdn\ABICDATA_DF01.DBF';
+set newname for datafile 10 to '+DATA\tcdn\ABIC_001.DBF';
+set newname for datafile 11 to '+DATA\tcdn\ABIC_002.DBF';
+set newname for datafile 12 to '+DATA\tcdn\ABIC_003.DBF';
+set newname for datafile 13 to '+DATA\tcdn\ABIC_004.DBF';
+set newname for datafile 14 to '+DATA\tcdn\ABIC_005.DBF';
+set newname for datafile 15 to '+DATA\tcdn\ABIC_006.DBF';
+set newname for datafile 16 to '+DATA\tcdn\ABIC_007.DBF';
+set newname for datafile 17 to '+DATA\tcdn\ABIC_008.DBF';
+set newname for datafile 18 to '+DATA\tcdn\ABIC_009.DBF';
+set newname for datafile 19 to '+DATA\tcdn\ABIC_010.DBF';
+set newname for datafile 20 to '+DATA\tcdn\ABIC_080.DBF';
+set newname for datafile 21 to '+DATA\tcdn\ABICINDEX_DF04.DBF';
+set newname for datafile 22 to '+DATA\tcdn\ABICINDEX_DF03.DBF';
+set newname for datafile 23 to '+DATA\tcdn\ABICINDEX_DF02.DBF';
+set newname for datafile 24 to '+DATA\tcdn\ABICINDEX_DF01.DBF';
+set newname for datafile 25 to '+DATA\tcdn\ABICINDEX_DF05.DBF';
+set newname for datafile 26 to '+DATA\tcdn\ABICINDEX_DF06.DBF';
+
+
+	
+RMAN> 
+run {
+allocate channel ch1 device type disk;
+allocate channel ch2 device type disk;
+allocate channel ch3 device type disk;
+allocate channel ch4 device type disk;
+allocate channel ch5 device type disk;
+allocate channel ch6 device type disk;
+allocate channel ch7 device type disk;
+allocate channel ch8 device type disk;
+set newname for datafile 1 to '+DATA';
+set newname for datafile 2 to '+DATA';
+set newname for datafile 3 to '+DATA';
+set newname for datafile 4 to '+DATA';
+set newname for datafile 5 to '+DATA';
+set newname for datafile 6 to '+DATA';
+set newname for datafile 7 to '+DATA';
+set newname for datafile 8 to '+DATA';
+set newname for datafile 9 to '+DATA';
+set newname for datafile 10 to '+DATA';
+set newname for datafile 11 to '+DATA';
+set newname for datafile 12 to '+DATA';
+set newname for datafile 13 to '+DATA';
+set newname for datafile 14 to '+DATA';
+set newname for datafile 15 to '+DATA';
+set newname for datafile 16 to '+DATA';
+set newname for datafile 17 to '+DATA';
+set newname for datafile 18 to '+DATA';
+set newname for datafile 19 to '+DATA';
+set newname for datafile 20 to '+DATA';
+set newname for datafile 21 to '+DATA';
+set newname for datafile 22 to '+DATA';
+set newname for datafile 23 to '+DATA';
+set newname for datafile 24 to '+DATA';
+set newname for datafile 25 to '+DATA';
+set newname for datafile 26 to '+DATA';
+restore database;
+switch datafile all;
+}
+
+select file#,error from v$recover_file;
+================================================================
+
+FIX !!!!
+
+run {
+switch datafile 3 to   copy;
+switch datafile 18 to  copy;
+switch datafile 19 to  copy;
+switch datafile 21 to  copy;
+}
+
+run
+{
+set newname for datafile 3 to '+DATA';
+set newname for datafile 18 to '+DATA';
+set newname for datafile 19 to '+DATA';
+set newname for datafile 21 to '+DATA';
+restore datafile 3,18,19,21;
+switch datafile 3;
+switch datafile 18;
+switch datafile 19;
+switch datafile 21;
+}
+================================================================
+TIEP
+
+select member from v$logfile;
+
+MEMBER
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------
+C:\ORACLE_DATA\TCDN\REDO03.LOG
+C:\ORACLE_DATA\TCDN\REDO02.LOG
+C:\ORACLE_DATA\TCDN\REDO01.LOG
+
+alter database rename file 'C:\ORACLE_DATA\TCDN\REDO03.LOG'  to '+DATA';
+alter database rename file 'C:\ORACLE_DATA\TCDN\REDO02.LOG'  to '+DATA';
+alter database rename file 'C:\ORACLE_DATA\TCDN\REDO01.LOG'  to '+DATA';
+
+
+alter database rename file 'F:\APP\ADMINISTRATOR\RECOVERY_AREA\TCDN\ONLINELOG\O1_MF_3_D2DQ4D5L_.LOG' to '+DATA';
+alter database rename file 'F:\APP\ADMINISTRATOR\RECOVERY_AREA\TCDN\ONLINELOG\O1_MF_2_D2DQ4BOP_.LOG' to '+DATA';
+alter database rename file 'F:\APP\ADMINISTRATOR\RECOVERY_AREA\TCDN\ONLINELOG\O1_MF_1_D2DQ495L_.LOG' to '+DATA';
+
+
+F:\APP\ADMINISTRATOR\RECOVERY_AREA\TCDN\ONLINELOG\O1_MF_3_D2DQ4D5L_.LOG
+F:\APP\ADMINISTRATOR\RECOVERY_AREA\TCDN\ONLINELOG\O1_MF_2_D2DQ4BOP_.LOG
+F:\APP\ADMINISTRATOR\RECOVERY_AREA\TCDN\ONLINELOG\O1_MF_1_D2DQ495L_.LOG
+
+alter database archivelog;
+
+ALTER SYSTEM SET log_archive_dest_1='location=F:\app\Administrator\recovery_area\ARCH\' SCOPE=both;
+
+
+
+*********** Tao spfile phai nam trong ASM
+
+SQL> create spfile='+DATA' from pfile='F:\TCDN_121116\pfile_TCDN.ora';
+
+File created.
+
+Tao init file trong E:\app\Administrator\product\11.2.0\dbhome_1\database\inittcdn.ora';
+
+spfile=+data/tcdn/parameterfile/spfile.269.927648089
+
+-=======================================================
+tao temp
+
+SQL>    select name from v$tempfile;
+
+NAME
+-------------------------------------------------------------------------------
+
+C:\ORACLE_DATA\TCDN\TEMP01.DBF
+E:\ORACLE_DATA\TEMP1.DBF
+E:\ORACLE_DATA\TEMP2.DBF
+
+SQL>
+SQL>    select tablespace_name from dba_tablespaces where contents='TEMPORARY';
+
+TABLESPACE_NAME
+------------------------------
+TEMP
+ABIC_TEMP1
+ABIC_TEMP2
+
+create temporary tablespace TEMP2 tempfile '+DATA' size 100M autoextend on;
+
+alter database default temporary tablespace TEMP2;
+
+drop tablespace TEMP including contents and datafiles;
+	
+drop tablespace ABIC_TEMP1 including contents and datafiles;
+
+drop tablespace ABIC_TEMP2 including contents and datafiles;
+
+
+-=======================================================
+UNDO
+
+	Show parameter undo 
+-----------------------------------------------------------------
+Alter database open resetlogs upgrade;
+
+spool catupgrd.txt;
+@catupgrd.sql
+spool off;
+
+select owner,object_name,object_type from dba_objects where status='INVALID';
+@utlrp.sql
+select owner,object_name,object_type from dba_objects where status='INVALID';
+
+
+
+   LISTENER_ORACLE =
+  (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+
+srvctl add database -d TCDN -o E:\app\Administrator\product\11.2.0\dbhome_1 -p +data/tcdn/parameterfile/spfile.269.927648089 -a DATA -s OPEN -t IMMEDIATE 
+  
+  
+2. Restore pfile
+3. Restore controlfile
+4. Restore datafile
+5. Recover database
+6. Alter database open resetlogs
+
+===================================================
+BACKUP DB
+
+run{
+	allocate channel ch1 device type disk;
+	allocate channel ch2 device type disk;
+	allocate channel ch3 device type disk;
+	allocate channel ch4 device type disk;
+	allocate channel ch5 device type disk;
+	allocate channel ch6 device type disk;
+	allocate channel ch7 device type disk;
+	allocate channel ch8 device type disk;
+    sql 'alter system archive log current';
+    backup database format 'F:\backupDB_DG\tcdn_db_%T_s%s_p%p.bkp';
+    backup archivelog all format 'F:\backupDB_DG\tcdn_arch_%T_s%s_p%p.bkp'; 
+    backup current controlfile format 'F:\backupDB_DG\tcdn_ctl_%T_s%s_p%p.bkp';
+    backup spfile format 'F:\backupDB_DG\tdcn_spfile_%T_s%s_p%p.bkp';
+}
+===================================================
+srvctl config listener
+srvctl config scan_listener
+srvctl modify listener -l LISTENER -p "TCP:1521"	
+alter system set local_listener='(ADDRESS=(PROTOCOL=TCP)(HOST=10.10.10.1)(PORT=1521))' scope=both sid='*'; (sua ca trong ASM va DATABASE)
+alter system set local_listener='(ADDRESS=(PROTOCOL=TCP)(HOST=10.10.10.3)(PORT=1521))' scope=both sid='*';
+
+===================================================
+
+alter database add logfile member '+DATA' to group 1;
+alter database add logfile member '+DATA' to group 2;
+alter database add logfile member '+DATA' to group 3;
+
+alter database drop logfile member 'F:\APP\ADMINISTRATOR\RECOVERY_AREA\TCDN\ONLINELOG\O1_MF_3_D2DQ4D5L_.LOG';
+alter database drop logfile member 'F:\APP\ADMINISTRATOR\RECOVERY_AREA\TCDN\ONLINELOG\O1_MF_2_D2DQ4BOP_.LOG';
+alter database drop logfile member 'F:\APP\ADMINISTRATOR\RECOVERY_AREA\TCDN\ONLINELOG\O1_MF_1_D2DQ495L_.LOG';
+
+F:\APP\ADMINISTRATOR\RECOVERY_AREA\TCDN\ONLINELOG\O1_MF_3_D2DQ4D5L_.LOG
+F:\APP\ADMINISTRATOR\RECOVERY_AREA\TCDN\ONLINELOG\O1_MF_2_D2DQ4BOP_.LOG
+F:\APP\ADMINISTRATOR\RECOVERY_AREA\TCDN\ONLINELOG\O1_MF_1_D2DQ495L_.LOG
+
+  
