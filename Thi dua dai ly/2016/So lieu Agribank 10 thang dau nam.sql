@@ -1,0 +1,191 @@
+delete temp_1;
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1200','08013',1376,415866199668,64,2087715360357.3);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1220','00236',524,381010206000,176,1682564520912.35);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1240','00212',417,399566110000,47,459933430000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1260','',189,142111800000,40,267130595740);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1300','00205',1007,449698292915,179,419639098940);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1302','00227',568,218836000000,449,548786535701.17);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1303','00237',857,638810796500,81,2115238455842);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1305','00226',697,462225995551,73,401098110812);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1400','00230',1435,1128966749006,62,1546030755733);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1401','00228',289,65010724891,40,120721691648);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1410','00224',564,318415063500,58,1355450563111);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1420','00234',652,781241752000,36,1606145000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1440','00202',1001,609248624007,86,716597729135);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1450','00203',581,660616692800,106,2784392952597);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1460','00238',380,250093230000,844,2778797896133.25);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1462','00240',672,203211736136,78,450519829911);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1480','00242',225,235220498500,40,365442362674);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1482','00239',552,637690726002,118,473137103541);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1483','00225',466,797574925000,63,2051184116390.18);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1500','00222',2328,1372542179148,4124,8305772144706.23);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1502','00220',515,302195269000,119,956477394760);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1504','08015',949,402218490580,585,2061018601329.2);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1505','00235',247,234143350000,66,461708408432);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1506','00231',771,485278996618,404,2572068660119.8);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1507','00241',751,556473950000,83,2234674510207);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1508','00232',439,223645305000,63,1274985476354);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1600','00111',1406,1275377325392,50,2620513737588);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1601','00137',297,290356554749,35,459500500000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1602','00133',870,834494340000,67,1808931459300);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1603','00115',660,941892320682,49,727700000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1604','00101',780,480251680770,99,995900204746);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1606','00136',762,1582185747339,127,2093322279753.31);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1607','00123',998,977269222994,53,527434533710);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1608','00153',209,122934875000,13,75513000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1700','00154',1231,628703350000,86,715597377439);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1702','00127',646,463523911400,32,3947751929800);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1800','00804',21844,3800481018203,193,1372611175960);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1890','00805',1048,719067292500,68,459968698930);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1900','00139',209,137424800000,28,322810000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1902','00155',368,405652000000,75,1537760651398.98);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1903','00135',307,232916750000,56,510015775000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1904','00156',677,636781000000,15,102244098680);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('1940','00141',343,474784351010,31,456158118277);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2000','00302',15102,4108318138391,851,5705364849654);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2001','00303',1441,487908751106,112,981959648984);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2100','00612',5393,1559377570000,345,1952778928598);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2111','00611',6041,1435962552400,240,1164100130530);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2112','00610',11203,1660289913200,192,779109059630);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2200','00209',42348,9735004277123,452,2317054341609);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2203','00207',3976,771909302360,194,717239477991.6);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2300','00601',37124,9338123775500,567,2624290995327);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2311','00608',3537,940835900000,67,358519111415);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2400','00218',28755,5580584357006,325,3151813966900);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2407','00210',4269,1226842607681,252,1612273584863);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2500','00206',49977,7836168058761,448,1703647109640);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2600','00204',18994,6674618167405,390,3263230870890);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2603','00211',1868,1269021100000,42,409360000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2700','08001',58584,8079418610018,310,1174017388796);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2800','00223',20637,5735629878000,273,641361261320);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2802','00221',2640,669530600000,57,780364505237.15);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2890','00216',2769,567733650000,99,874569929686);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('2900','00904',21810,4352201087001,551,2880544099156.01);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('3000','00201',37125,3513720272204,465,1798770221108);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('3100','00219',2819,1158391779332,315,1428052941324);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('3120','00217',1310,1019474727558,228,3471360111613.87);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('3140','00214',5759,3045349850000,110,2318442765110);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('3160','00215',8556,958629300000,127,887939000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('3180','00208',1971,496409018300,167,511558352407);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('3200','00602',39639,7825685678051,271,1310331676830);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('3203','00603',13432,3049154780000,213,1070137440374);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('3300','00903',25265,6507652861900,296,5769288948000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('3400','00607',50541,7147910790000,269,785476307384);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('3500','00901',159967,16757703929723,995,7558237188164);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('3600','00402',116932,16087317628042,1053,1992282157163);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('3700','00403',64956,8349646638144,632,1245044411245);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('3800','00404',26211,5137618952005,391,1436751327480);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('3900','00305',32593,4620081067740,785,1353969773862);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('4000','00304',25891,3253322023003,823,1508247403100);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('4200','00307',41359,4576517013502,385,1497263570410);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('4300','00301',36600,4191634431001,430,1610175419210);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('4500','00306',44420,4535249541910,670,1093089089896);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('4600','00703',45018,3818903477715,426,981839260851);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('4700','00701',19680,2874120318704,438,2372437876921);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('4800','00702',86378,8669607350321,323,3418058961200);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('4900','00704',36635,2885438350000,310,575262860870);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('5000','00505',23796,4841902173000,128,736353827765);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('5020','00510',29845,5586477900000,132,486347043300);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('5100','00506',21968,4221675516002,254,1217932113385);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('5200','00501',50875,8733043678746,322,985328462101);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('5208','00503',18694,3074206684811,79,225607560000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('5300','00508',21739,4298549762000,174,427818585312);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('5400','00502',40046,11005657462652,907,1709393115087);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('5490','00509',13968,2959964000000,31,78450000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('5500','',24358,5291875518804,411,7584012497416);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('5590','00122',3151,2122365716328,262,4886906134618);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('5600','00110',71749,13364286875030,166,684949231445);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('5700','00103',59685,8392411606256,229,1541618639570);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('5900','00104',62362,9293380134476,531,2223160926547.39);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('5990','00121',1477,479495614362,497,1056087184757.12);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6000','00705',27416,4266744245300,252,686486149516);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6090','00706',2952,1690435330709,121,466801727328);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6100','00112',1833,996116434810,51,245775000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6110','00148',343,430743746200,41,177851400000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6120','00117',5929,681655500000,47,337434000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6130','00131',737,220121060914,29,720160600000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6140','00109',2910,766434224812,47,686949775800);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6150','00130',576,216461770000,43,385976618008.78);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6160','00114',1316,826369420000,117,602090553623);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6170','00144',124,176776850000,4,15400000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6180','00107',2825,739476840000,6,36425792000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6200','00126',1164,522996279000,42,799768000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6220','00152',941,534352076736,57,777203809550);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6221','00151',146,121294000000,6,61200000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6222','00134',564,718946877854,146,2188086335821);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6223','00140',375,405375043400,37,821305143169);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6280','00128',1526,776939921872,117,870556139857);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6300','00143',2551,1982247851619,204,1402488118955.61);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6320','00157',1153,831762637000,115,811278000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6321','00120',478,317086400000,72,448077818000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6340','00119',1510,416480637000,81,2868723322763);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6350','00118',776,584813700000,15,276804296539);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6360','00124',1493,2025844018500,95,2465380000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6380','00132',639,698391419000,58,681050000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6400','00146',1217,763590766000,46,751345700000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6420','00150',326,278015000000,35,909250625000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6421','00147',580,231975275967,49,778853000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6440','00116',3413,817987970140,36,180066000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6460','00129',1264,821333752500,85,520198750000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6480','00125',254,151252571852,27,218847770000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6500','00806',98508,11014980943062,277,668689115650);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6600','00108',94282,11265445220554,258,975366604000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6700','00803',37977,8484684551778,217,1681416779685);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('6900','00102',83545,6935637373515,309,1383774017100);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('7000','00811',29497,3603144613102,65,200565000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('7100','00105',60439,6859669325002,284,663320436410);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('7200','00807',22910,2840922732010,505,2663586439109.4);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('7300','00801',50100,4728180436000,198,1557490000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('7400','00808',48670,5101371274165,116,412680930186);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('7500','00810',44669,6200225646350,407,2007673575300);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('7600','00802',30351,4332258431582,200,1364902770000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('7700','00809',50177,7918925513014,462,1228826253559);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('7790','00812',1267,792354000000,61,378920000000);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('7800','08008',10467,1994328960012,773,937921087776);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('7900','08005',20115,6636753029202,362,2741719013098);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('8000','00605',19172,4053211488000,581,3727238996539);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('8090','00609',5634,980106900000,59,195245791777);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('8100','08011',41203,3964433410003,384,549363459405);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('8200','08007',16855,2567779903839,104,183987888794);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('8300','08010',17181,2104496571000,379,681325877877);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('8400','08004',24143,3042249588480,534,1507450418181);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('8500','08002',37436,5385870886000,403,2007158231306);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('8600','08012',10450,1193298250004,212,370054834621);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('8700','08009',24141,4024629666703,165,1435291801233);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('8800','08003',26404,7531034258885,419,3680773396606);
+insert into temp_1 (c1,c2,n1,n2,n3,n4) values('8900','08006',14129,3210395400301,892,1765250770166);
+
+update temp_1 set c2=(select min(ma_dl) from bh_dl_nhno where c1=ma_nhno and nam=2016);
+update temp_1 set c2=(select min(ma_dl) from bh_dl_nhno where c1=ma_nhno) where c2 is null;
+update temp_1 set c3=(select min(ma_dvi) from bh_dl_td_sl where thang between 201601 and 201612 and ma_dl=c2);
+
+select c1,c2,c3,c4,n1,n2,n3,n4,n11,n12,n13,n14 from temp_1 where c3 is null;
+
+select distinct thang from bh_dl_td_dt where thang between 201601 and 201612
+	and ma_ct in ('TNCN_NHNo_KH','TNCN_NHNo_VAY','TNDN_NHNo_KH','TNDN_NHNo_VAY');
+
+update temp_1 set n11=(select n1-sum(so) from bh_dl_td_dt where ma_dvi=c3 and ma_dl=c2 and thang between 201601 and 201609
+	and ma_ct='TNCN_NHNo_KH');
+update temp_1 set n12=(select n2-sum(so) from bh_dl_td_dt where ma_dvi=c3 and ma_dl=c2 and thang between 201601 and 201609
+	and ma_ct='TNCN_NHNo_VAY');
+update temp_1 set n13=(select n3-sum(so) from bh_dl_td_dt where ma_dvi=c3 and ma_dl=c2 and thang between 201601 and 201609
+	and ma_ct='TNDN_NHNo_KH');
+update temp_1 set n14=(select n4-sum(so) from bh_dl_td_dt where ma_dvi=c3 and ma_dl=c2 and thang between 201601 and 201609
+	and ma_ct='TNDN_NHNo_VAY');
+
+select c1,c2,c3,c4,n1,n2,n3,n4,n11,n12,n13,n14 from temp_1 where c3 is not null;
+	
+delete bh_dl_td_dt where thang=201610 and ma_ct in ('TNCN_NHNo_KH','TNCN_NHNo_VAY','TNDN_NHNo_KH','TNDN_NHNo_VAY');
+insert into bh_dl_td_dt select c3 ma_dvi,c2 ma_dl,201610 thang,'TNCN_NHNo_KH' ma_ct,round(nvl(n11,0),0) so from temp_1 where c3 is not null;
+insert into bh_dl_td_dt select c3 ma_dvi,c2 ma_dl,201610 thang,'TNCN_NHNo_VAY' ma_ct,round(nvl(n12,0)) so from temp_1 where c3 is not null;
+insert into bh_dl_td_dt select c3 ma_dvi,c2 ma_dl,201610 thang,'TNDN_NHNo_KH' ma_ct,round(nvl(n13,0)) so from temp_1 where c3 is not null;
+insert into bh_dl_td_dt select c3 ma_dvi,c2 ma_dl,201610 thang,'TNDN_NHNo_VAY' ma_ct,round(nvl(n14,0)) so from temp_1 where c3 is not null;
+
+select * from bh_dl_td_dt where thang=201610 and ma_ct in ('TNCN_NHNo_KH','TNCN_NHNo_VAY','TNDN_NHNo_KH','TNDN_NHNo_VAY')
+	and ma_dl='00508';
+
+select ma_ct,sum(so) from bh_dl_td_dt where ma_ct in ('TNCN_NHNo_KH','TNCN_NHNo_VAY','TNDN_NHNo_KH','TNDN_NHNo_VAY')
+	and ma_dl='00508' and thang between 201601 and 201610
+	group by ma_ct;
+
+
