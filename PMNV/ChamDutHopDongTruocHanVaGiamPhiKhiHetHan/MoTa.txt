@@ -1,0 +1,77 @@
+1. Chấm dứt hợp đồng trước hạn
+ - Ngay nhap 
+ - Hop dong 
+  + lay thong tin tu SO_HD: khach hang, dai ly
+  + tong phi da phat hanh hoa don x
+  + tong phi da thu y
+  + ngay bd hieu luc, ngay kt hieu luc
+ - Ngay ket thuc hieu luc bao hiem
+ - Hoan phi da phat hanh hoa don x1 (number)
+  - Phi thuc tra y1=y-x+x1
+ - Thong tin phat hanh hoa don
+  + Hoan thue
+  + Kieu hoa don
+  + Mau, seri, so hoa don
+ - Phuong thuc tra tien
+  + Bu tru no khach hang (C)
+  + Bu tru phi dai ly thu ho (H)
+  + Tien mat (T)
+ Nhap, Xoa
+
+bh_hd_goc_huy
+ ma_dvi varchar2(10)
+ so_id number
+ ngay_ht number
+ ngay_kt number
+ phi_hoan number
+ phi_tra number
+ hoan_thue varchar2(1)
+ kieu_vat varchar2(1)
+ mau_vat varchar2(20)
+ seri_vat varchar2(20)
+ so_vat number
+ pthuc varchar2(1)
+ nsd varchar2(20)
+ tgian date
+ 
+2. Giam phi khi ket thuc hop dong
+ - Ngay nhap
+ - Hop dong
+  + lay thong tin tu SO_HD: khach hang, dai ly
+  + tong phi da phat hanh hoa don 
+  + tong phi da thu 
+  + ngay bd hieu luc, ngay kt hieu luc
+ - Giam phi (number)
+ - Thong tin phat hanh hoa don
+  + Kieu hoa don
+  + Mau, seri, so hoa don
+ - Phuong thuc tra tien
+  + Bu tru no khach hang (C)
+  + Tien mat (T)
+ 
+ Nhap, Xoa
+ 
+bh_hd_goc_giam
+ ma_dvi varchar2(10)
+ so_id number
+ ngay_ht number
+ phi_giam number
+ kieu_vat varchar2(1)
+ mau_vat varchar2(20)
+ seri_vat varchar2(20)
+ so_vat number
+ pthuc varchar2(1)
+ nsd varchar2(20)
+ tgian date
+
+pbh_hd_goc_giam_nh : nhap
+pbh_hd_goc_giam_xoa : xoa
+pbh_hd_goc_giam_ct : xem chi tiet theo so_id
+pbh_hd_goc_giam_lke: liet ke danh sach theo ngay_ht
+pbh_hd_goc_ttin : xem thong tin co ban cua hop dong
+ in: ma_dvi, so_hd
+ out: recordset 
+ 
+511: doanh thu
+531: hoan phi
+521: giam phi
