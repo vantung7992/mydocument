@@ -1,23 +1,24 @@
 --DBA--
 
 --CREATE USER
-CREATE USER NewDBA IDENTIFIED BY passwd;
+	CREATE USER NewDBA IDENTIFIED BY passwd;
 
 --CHANGE PASS
-ALTER USER tungnv IDENTIFIED BY Tungnv;
+	ALTER USER tungnv IDENTIFIED BY Tungnv;
 
 --GRANT 
-GRANT DBA TO NewDBA WITH ADMIN OPTION;
+	GRANT DBA TO NewDBA WITH ADMIN OPTION;
 
 --Ngày --> số
-kt_abic.pkh_ng_cso(ngay_hl)
+	kt_abic.pkh_ng_cso(ngay_hl)
 --Số --> ngày
-PKH_SO_CDT
---select user
-create user tungnv identified by Tungnv88;
-grant create session to tungnv;
+	PKH_SO_CDT
 
---BD link 
+--Select user
+	create user tungnv identified by Tungnv88;
+	grant create session to tungnv;
+
+--DB link 
 	Create public database link abic_s1
 	  connect to tungnv identified by Tungnv88
 	  using
@@ -32,3 +33,9 @@ grant create session to tungnv;
 	DROP PUBLIC DATABASE LINK abic_s1; 
 --TNS PING
 https://docs.oracle.com/cd/E11882_01/network.112/e41945/connect.htm#NETAG357
+
+--Lay so lieu
+----Lay danh sach dl vien thuoc agri
+	select ma_dvi,ten,dchi,tax,so_cmt,nhang,loai,pt_thue from kt_abic.bh_dl_ma_kh 
+	  where nhang like 'AGRI%' and ma_ct is not null and pt_thue <> 'K'
+	  order by ma_dvi;
