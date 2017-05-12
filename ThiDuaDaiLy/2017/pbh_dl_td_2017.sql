@@ -796,14 +796,3 @@ exception when others then rollback;
     if b_loi is null then raise; else raise_application_error(-20105,b_loi); end if;
 end;
 End;
------
-insert into temp_1(c1,c2,n1,n2,n3)
-select a.ma_dvi,decode(NVL(d.ma_ct,' '),' ',d.ma,d.ma_ct) ma_dl,round(ngay_ht/100,0) thang,count(distinct a.so_id) so_kh,
-    sum(decode(b.nt_tien,'VND',b.tien,FTT_VND_QD(b.ma_dvi,a.ngay_ht,b.nt_tien,b.tien))) tien
-    from bh_hd_goc a,bh_hd_goc_dk b,bh_hd_ma_kh k,bh_dl_ma_kh d
-    where a.ma_dvi=b.ma_dvi and a.so_id=b.so_id and a.kieu_hd='G' and a.ttrang='D'
-    and a.ngay_ht between 20170101 and 20171231
-    and b.lh_nv in ('020105')
-    and a.ma_dvi=b.ma_dvi and a.ma_kh=k.ma 
-    and a.kieu_kt='D' and a.ma_dvi=d.ma_dvi and a.ma_kt=d.ma and d.nhang like 'AGRI%'
-    group by a.ma_dvi,decode(NVL(d.ma_ct,' '),' ',d.ma,d.ma_ct),round(ngay_ht/100,0);
