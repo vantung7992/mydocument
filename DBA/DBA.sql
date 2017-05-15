@@ -2,6 +2,17 @@
 
 --CREATE USER
 	CREATE USER NewDBA IDENTIFIED BY passwd;
+	
+	grant create session to r_abic;
+	grant create table to r_abic;
+	grant create view to r_abic;
+	grant create any trigger to r_abic;
+	grant create any procedure to r_abic;
+	grant create sequence to r_abic;
+	grant create synonym to r_abic;
+	grant create database link to r_abic;
+	ALTER USER r_abic quota 100M on USERS;
+	alter user <user_name> quota unlimited on <tablespace_name>;
 
 --CHANGE PASS
 	ALTER USER tungnv IDENTIFIED BY Tungnv;
