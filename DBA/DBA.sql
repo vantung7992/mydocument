@@ -13,7 +13,10 @@
 	grant create database link to r_abic;
 	ALTER USER r_abic quota 100M on USERS;
 	alter user <user_name> quota unlimited on <tablespace_name>;
-
+	
+--DROP USER
+	DROP USER smithj CASCADE; -- có dữ liệu
+	DROP USER smithj; -- Ko có gì
 --CHANGE PASS
 	ALTER USER tungnv IDENTIFIED BY Tungnv;
 
@@ -42,6 +45,11 @@
 		 (SID=tcdn)))';
 		 
 	DROP PUBLIC DATABASE LINK abic_s1; 
+-- Kill session
+	SELECT username FROM v$session WHERE username IS NOT NULL ORDER BY username ASC;
+	select inst_id,sid,serial# from gv$session where username='KT_ABIC';
+	alter system kill session '997,3,@1';
+
 --TNS PING
 https://docs.oracle.com/cd/E11882_01/network.112/e41945/connect.htm#NETAG357
 

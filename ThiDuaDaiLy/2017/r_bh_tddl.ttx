@@ -1,0 +1,37 @@
+ma_dvi	String	20
+ten_dvi	String	100
+ma_tdl	String	10
+ten_dl	String	100
+ma_dl	String	20
+ma_nh	String	20
+ten_nh	String	100
+so_hd	String	50
+ten_dt	String	200
+ma_dt	String	20	
+lh_nv	String	20
+ten_lh_nv	String	100
+sl_gcn_nha	Number
+sl_gcn_bact	Number
+diem_spmoi	Number	
+dt_bh_nha	Number	
+dt_bh_bact	Number
+diem_dt_spmoi	Number
+tong_diem	Number	
+kvuc	string	100
+kvuc_ten	string	100
+
+dt_tt	Number	
+dt_qd	Number
+diem_dt	Number
+dt_nhom_1	Number
+dt_nhom_2	Number
+dt_nhom_3	Number
+dt_nhom_4	Number
+tl_bt	Number	
+diem_hq	Number
+tl_tt	Number
+diem_tt	Number
+st_bt	Number
+dp_bt	Number
+tong_bt	Number
+dt_tt_nt	Number
