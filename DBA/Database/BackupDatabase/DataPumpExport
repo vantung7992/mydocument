@@ -1,0 +1,24 @@
+Data Pump export 
+- Full (default mode)
+- Schema
+- Table
+- Tablespace
+- Transporttable tablespace
+
+Parameters
+
+- COMPRESSION={ALL | DATA_ONLY | METADATA_ONLY | NONE}
+	+ ALL enables compression for the entire export operation. This is default
+	+ DATA_ONLY results in all data being written to the dump file in compressed format.
+	+ METADATA_ONLY results in all metadata being written to the dump file in compressed format. This is the default.
+	+ NONE disables compression for the entire export operation.
+
+- CONTENT={ALL | DATA_ONLY | METADATA_ONLY}
+	+ ALL unloads both data and metadata. This is the default.
+	+ DATA_ONLY unloads only table row data; no database object definitions are unloaded.
+	+ METADATA_ONLY unloads only database object definitions; no table row data is unloaded.
+
+- DIRECTORY=directory_object
+	+ select directory_name,directory_path from dba_directories;
+	+ create or replace directory TCDN_BK_DIR as 'E:\bk';
+	+ grant read, write on directory THUVIEN_BK_DIR to bk;

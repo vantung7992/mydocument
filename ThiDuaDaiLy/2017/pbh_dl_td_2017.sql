@@ -182,16 +182,16 @@ insert into bh_dl_td_dt select c1 ma_dvi,c2 ma_dl,n1 thang,'TNCN_KH' ma_ct,sum(n
 insert into bh_dl_td_dt select c1 ma_dvi,c2 ma_dl,n1 thang,'TNCN_STBH' ma_ct,sum(n3) so from temp_1 where n3 is not null
     group by c1,c2,n1;
 
---S?N PH?M M?I
----NHÀ T? NHÂN
+--San pham moi
+---Nha tu nhan
 delete bh_dl_td_dt where thang between round(b_ngayd/100) and round(b_ngayc/100) and ma_ct in ('NTN_GCN','NTN_STBH');
 delete temp_1;
-insert into temp_1(c1,c2,n1,n2,n3);
+insert into temp_1(c1,c2,n1,n2,n3)
 select a.ma_dvi,decode(NVL(d.ma_ct,' '),' ',d.ma,d.ma_ct) ma_dl,round(ngay_ht/100,0) thang,count(distinct a.so_id) so_kh,
     sum(decode(b.nt_tien,'VND',b.tien,FTT_VND_QD(b.ma_dvi,a.ngay_ht,b.nt_tien,b.tien))) tien
     from bh_hd_goc a,bh_hd_goc_dk b,bh_hd_ma_kh k,bh_dl_ma_kh d
     where a.ma_dvi=b.ma_dvi and a.so_id=b.so_id and a.kieu_hd='G' and a.ttrang='D'
-    and a.ngay_ht between 20170101 and 20171231
+    and a.ngay_ht between b_ngayd and b_ngayc
     and b.lh_nv in ('020105')
     and a.ma_dvi=b.ma_dvi and a.ma_kh=k.ma 
     and a.kieu_kt='D' and a.ma_dvi=d.ma_dvi and a.ma_kt=d.ma and d.nhang like 'AGRI%'
@@ -205,18 +205,17 @@ insert into bh_dl_td_dt select c1 ma_dvi,c2 ma_dl,n1 thang,'NTN_STBH' ma_ct,sum(
 ---BAO AN CHU THE SUCCESS
 delete bh_dl_td_dt where thang between round(b_ngayd/100) and round(b_ngayc/100) and ma_ct in ('BACT_GCN','BACT_STBH');
 delete temp_1;
-insert into temp_1(c1,c2,n1,n2,n3);
-select ma_dvi,ma_tdl,round(ngay_cap/100,0) thang,count(distinct so_id_ps) so_gcn,
- sum(ttoan_qd) tien from bh_ba_ct_gcn where
- ngay_cap between 20170101 and 20171231
- group by ma_dvi,ma_tdl,round(ngay_cap/100,0) order by ma_dvi asc,thang asc;
+insert into temp_1(c1,c2,n1,n2,n3)
+select ma_dvi,ma_tdl,round(ngay_cap/100,0) thang,count(distinct so_id_ps) so_gcn,sum(ttoan_qd) tien 
+  from bh_ba_ct_gcn 
+  where ngay_cap between b_ngayd and b_ngayc
+  group by ma_dvi,ma_tdl,round(ngay_cap/100,0) order by ma_dvi asc,thang asc;
 
 insert into bh_dl_td_dt select c1 ma_dvi,c2 ma_dl,n1 thang,'BACT_GCN' ma_ct,sum(n2) so from temp_1 where n2 is not null
     group by c1,c2,n1;
 insert into bh_dl_td_dt select c1 ma_dvi,c2 ma_dl,n1 thang,'BACT_STBH' ma_ct,sum(n3) so from temp_1 where n3 is not null
     group by c1,c2,n1;
- 
- 
+
 commit;
 exception when others then rollback;
     if b_loi is null then raise; else raise_application_error(-20105,b_loi); end if;
@@ -400,40 +399,40 @@ end if;
 
 delete temp_1;
 -- so lieu theo ky
-b_ngay1:=201300+to_number(substr(b_ngayd,5,2)); b_ngay2:=201300+to_number(substr(b_ngayc,5,2)); -- 2013
+b_ngay1:=201400+to_number(substr(b_ngayd,5,2)); b_ngay2:=201400+to_number(substr(b_ngayc,5,2)); -- 2014
 insert into temp_1(c4,n3)
     select ma_dl,sum(dt_tt) from bh_dl_td_sl,temp_bc_dvi
         where ma_dvi=dvi and thang between b_ngay1 and b_ngay2
         group by ma_dl;
-b_ngay1:=b_ngay1+200; b_ngay2:=b_ngay2+200; -- 2015
+b_ngay1:=b_ngay1+200; b_ngay2:=b_ngay2+200; -- 2016
 insert into temp_1(c4,n4)
     select ma_dl,sum(dt_tt) from bh_dl_td_sl,temp_bc_dvi
         where ma_dvi=dvi and thang between b_ngay1 and b_ngay2
         group by ma_dl;
 -- so lieu ca nam
-b_ngay1:=201301; b_ngay2:=201312; -- 2013
+b_ngay1:=201401; b_ngay2:=201412; -- 2014
 insert into temp_1(c4,n5)
     select ma_dl,sum(dt_tt) from bh_dl_td_sl,temp_bc_dvi
         where ma_dvi=dvi and thang between b_ngay1 and b_ngay2
         group by ma_dl;
 -- tru di TNDS-BB
 insert into temp_1(c4,n5)
-    select ma_dl,-sum(so) from bh_dl_td_dt,temp_bc_dvi
-        where ma_dvi=dvi and thang between b_ngay1 and b_ngay2 and ma_ct='DTTT_TNDS-BB'
-        group by ma_dl;
-
-b_ngay1:=b_ngay1+100; b_ngay2:=b_ngay2+100; -- 2014
-insert into temp_1(c4,n6)
-    select ma_dl,sum(dt_tt) from bh_dl_td_sl,temp_bc_dvi
-        where ma_dvi=dvi and thang between b_ngay1 and b_ngay2
-        group by ma_dl;
--- tru di TNDS-BB
-insert into temp_1(c4,n6)
     select ma_dl,-sum(so) from bh_dl_td_dt,temp_bc_dvi
         where ma_dvi=dvi and thang between b_ngay1 and b_ngay2 and ma_ct='DTTT_TNDS-BB'
         group by ma_dl;
 
 b_ngay1:=b_ngay1+100; b_ngay2:=b_ngay2+100; -- 2015
+insert into temp_1(c4,n6)
+    select ma_dl,sum(dt_tt) from bh_dl_td_sl,temp_bc_dvi
+        where ma_dvi=dvi and thang between b_ngay1 and b_ngay2
+        group by ma_dl;
+-- tru di TNDS-BB
+insert into temp_1(c4,n6)
+    select ma_dl,-sum(so) from bh_dl_td_dt,temp_bc_dvi
+        where ma_dvi=dvi and thang between b_ngay1 and b_ngay2 and ma_ct='DTTT_TNDS-BB'
+        group by ma_dl;
+
+b_ngay1:=b_ngay1+100; b_ngay2:=b_ngay2+100; -- 2016
 insert into temp_1(c4,n7)
     select ma_dl,sum(dt_tt) from bh_dl_td_sl,temp_bc_dvi
         where ma_dvi=dvi and thang between b_ngay1 and b_ngay2
@@ -445,7 +444,7 @@ insert into temp_1(c4,n8)
         group by ma_dl;
 
 -- Ty le tang truong
-b_tl:=1.e9/(PKH_SO_CDT(20161231)-PKH_SO_CDT(20160101))*(PKH_SO_CDT(b_ngayc)-PKH_SO_CDT(b_ngayd));
+b_tl:=1.e9/(PKH_SO_CDT(20171231)-PKH_SO_CDT(20170101))*(PKH_SO_CDT(b_ngayc)-PKH_SO_CDT(b_ngayd));
 delete temp_2;
 insert into temp_2(c4,n3,n4,n5,n6,n7,n8) select c4,sum(n3),sum(n4),sum(n5),sum(n6),sum(n7),sum(n8) from temp_1 group by c4;
 update temp_2 set n3=nvl(n3,0),n4=nvl(n4,0),n5=nvl(n5,0),n6=nvl(n6,0),n7=nvl(n7,0),n8=nvl(n8,0),n15=0,n16=0,n17=0,n18=0;
@@ -749,30 +748,25 @@ Begin
 if b_ngayd not between 20170101 and 20171231 or b_ngayc not between 20170101 and 20171231 then
     b_loi:='loi:Ngay bao cao khong hop le:loi'; raise_application_error(-20105,b_loi);
 end if;
+
 b_loi:=FHT_MA_NSD_KTRA(b_ma_dvi,b_nsd,b_pas,'BH','','');
 if b_loi is not null then raise program_error; end if;
 
 PBC_LAY_DVI('080','','080','a',b_loi);
 if b_loi is not null then return; end if;
 
-delete temp_1;
-insert into temp_2(c4,n5,n15)
-    select ma_dl,sum(decode(ma_ct,'BACT_GCN',so,'NTN_GCN',so*3,0)),sum(decode(ma_ct,'BACT_STBH',so,'NTN_GCN',so,0)) from bh_dl_td_dt,temp_bc_dvi
-        where ma_dvi=dvi and thang between round(b_ngayd/100,0) and round(b_ngayc/100,0)
-        group by ma_dl;
-
 delete temp_2;
+insert into temp_2(c4,n5,n6,n15,n16)
+  select ma_dl,sum(decode(ma_ct,'NTN_GCN',so*3,0)),sum(decode(ma_ct,'BACT_GCN',so,0)),sum(decode(ma_ct,'NTN_STBH',so,0)),sum(decode(ma_ct,'BACT_STBH',so,0)) from bh_dl_td_dt,temp_bc_dvi
+    where ma_dvi=dvi and thang between round(b_ngayd/100,0) and round(b_ngayc/100,0)
+    group by ma_dl;
+
 update temp_2 set c1=(select min(ma_dvi) from bh_dl_td_dt where thang between round(b_ngayd/100,0) and round(b_ngayc/100,0) and ma_dl=c4);
 update temp_2 set (c6,c7)=(select ma_kv,kvuc from bh_dl_td_kvuc where ma_dvi=c1 and ma_dl=c4);
 update temp_2 set (c5)=(select ma_nhno from bh_dl_nhno where ma_dl=c4 and nam=2016);
 
-update temp_2 set n6=(select sum(so) from bh_dl_td_dt where ma_dvi=c1 and ma_dl=c4
-    and thang between round(b_ngayd/100,0) and round(b_ngayc/100,0) and ma_ct='TNDN_NHNo_KH');
-update temp_2 set n16=(select sum(so) from bh_dl_td_dt where ma_dvi=c1 and ma_dl=c4
-    and thang between round(b_ngayd/100,0) and round(b_ngayc/100,0) and ma_ct='TNDN_NHNo_VAY');
-
-update temp_2 set n7=round(n5/n6*100,2) where n6<>0;
-update temp_2 set n17=round(n15/n16*100,2) where n16<>0;
+update temp_2 set n7=n5+n6;
+update temp_2 set n17=n15+n16;
 
 -- Tinh diem
 update temp_2 a set n8=(select max(n7) from temp_2 b where a.c6=b.c6);
@@ -788,8 +782,8 @@ update temp_2 set c14=(select ten from bh_dl_ma_kh where ma_dvi=c1 and ma=c4);
 
 commit;
 
-open cs1 for select c1 ma_dvi,c11 ten_dvi,c4 ma_dl,c14 ten_dl,c5 ma_nh,c6 kvuc,c7 kvuc_ten,
-    n5 hd_dn,n6 hdtd_dn,n7 tl_dn,n9 diem_dn,n15 stbh_dn,n16 st_vay_dn,n17 tl_dt_dn,n19 diem_dt_dn,n10 diem_tt from temp_2
+open cs1 for select c1 ma_dvi,c11 ten_dvi,c4 ma_dl,c14 ten_tdl,c5 ma_nh,c6 kvuc,c7 kvuc_ten,
+    n5 sl_gcn_nha,n6 sl_gcn_bact,n7 tl_dn,n9 diem_spmoi,n15 dt_bh_nha,n16 dt_bh_bact,n17 tl_dt_dn,n19 diem_dt_spmoi,n10 tong_diem from temp_2
     order by c6,n10 desc,n8 desc;
 
 exception when others then rollback;
